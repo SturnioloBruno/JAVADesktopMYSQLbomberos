@@ -53,5 +53,52 @@ public class CuartelData {
         return cuartel;
     }
     
+    public Cuartel buscarPorCodCuartel(Integer cod){
+        String query = "SELECT * FROM cuartel WHERE codCuartel=" + cod;
+        Cuartel respuesta = new Cuartel();
+        try{
+            PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                respuesta.setCodCuartel(rs.getInt(1));
+                respuesta.setNombre_cuartel(rs.getString(2));
+                respuesta.setDireccion(rs.getString(3));
+                respuesta.setCoord_X(rs.getInt(4));
+                respuesta.setCoord_Y(rs.getInt(5));
+                respuesta.setTelefono(rs.getString(6));
+                respuesta.setCorreo(rs.getString(7));
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al buscar cuartel con cod: " + cod);
+            ex.printStackTrace();
+        }
+        return respuesta;
+    }
+    
+    public Cuartel buscarCuartelSegunNombre(String nombre) {
+        Cuartel respuesta = new Cuartel();
+        String query = "SELECT * FROM cuartel WHERE nombre_cuartel LIKE '" + nombre + "'";
+        
+        try{
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                respuesta.setCodCuartel(rs.getInt(1));
+                respuesta.setNombre_cuartel(rs.getString(2));
+                respuesta.setDireccion(rs.getString(3));
+                respuesta.setCoord_X(rs.getInt(4));
+                respuesta.setCoord_Y(rs.getInt(5));
+                respuesta.setTelefono(rs.getString(6));
+                respuesta.setCorreo(rs.getString(7));
+            }
+            ps.close();
+        }catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar cuartel con nombre: " + nombre);
+            ex.printStackTrace();
+        }
+        return respuesta;
+    }
+    
     
 }

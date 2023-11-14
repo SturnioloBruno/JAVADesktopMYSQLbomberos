@@ -55,5 +55,8 @@ public class BomberoData {
         return bombero;
     }
     
+    public Bombero asignarBomberoABrigada(Bombero bombero, String nombreBrigada) {
+        return bombero;
+    }
     
 }

@@ -36,8 +36,16 @@ public class CuartelDeBomberos {
 //            Brigada brigadaSinCuartelSinBomberosYSinSiniestros = new Brigada("suicideSquad", TipoIncidente.INCENDIOS_EN_VIVIENDAS_E_INDUSTRIAS, true, null, null, null);
 //            bd.guardarBrigadaSinCuartel(brigadaSinCuartelSinBomberosYSinSiniestros);
 
-        SiniestroData sd = new SiniestroData();
-        Siniestro siniestroSinAsignarAGuardar = new Siniestro(TipoIncidente.SOCORRER_INUNDACIONES, LocalDate.now(), 13, 92, "esto es una inundacion en una casa \n los habitantes ya han sido evacuados", null, null, null);
-        sd.guardarSiniestroSinAsignar(siniestroSinAsignarAGuardar);
+//        SiniestroData sd = new SiniestroData();
+//        Siniestro siniestroSinAsignarAGuardar = new Siniestro(TipoIncidente.SOCORRER_INUNDACIONES, LocalDate.now(), 13, 92, "esto es una inundacion en una casa \n los habitantes ya han sido evacuados", null, null, null);
+//        sd.guardarSiniestroSinAsignar(siniestroSinAsignarAGuardar);
+
+        CuartelData cd = new CuartelData();
+        Cuartel cuartelBuscado = cd.buscarCuartelSegunNombre("polvorin");
+        System.out.println(cuartelBuscado.toString());
+        
+        BrigadaData bd = new BrigadaData();
+        Brigada brigadaBuscada = bd.buscarBrigadaSegunNombre("suicideSquad");
+        System.out.println(brigadaBuscada.toString());
     }
 }
