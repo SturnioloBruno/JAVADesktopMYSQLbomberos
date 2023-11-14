@@ -29,7 +29,7 @@ public class BomberoData {
     
     // CRUD de bomberos:
     
-    public Bombero crearBomberoSinBrigada(Bombero bombero){
+    public Bombero guardarBomberoSinBrigada(Bombero bombero){
         String query = "INSERT INTO bombero(dni,nombre_ape,grupo_sanguineo,fecha_nac,celular,activo) VALUES (?,?,?,?,?,?)";
         try{
             // Primero seteo los valores que recibo por parametro en mi query
@@ -48,6 +48,7 @@ public class BomberoData {
                 bombero.setId_bombero(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Bombero: " + bombero.toString() + "creado correctamente");
             }
+            ps.close();
         }catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al crear bombero. \n Asegurese de que el DNI no este repetido");
         }
