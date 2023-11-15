@@ -164,5 +164,53 @@ public class BrigadaData {
         }
         return brigadas;
     }
+    // Los metodos de listarLibre y Ocupada los comente xq eran algo redundantes
     
+//    public List<Brigada> listarBrigadasLibres() {
+//        List<Brigada> brigadasLibres = new ArrayList<>();
+//        String query = "SELECT * FROM brigada WHERE libre=" + 1;
+//        
+//        try{
+//            Statement statement = conexion.createStatement();
+//            ResultSet rs = statement.executeQuery(query);
+//            while(rs.next()){
+//                Brigada brigada = new Brigada();
+//                brigada.setCodBrigada(rs.getInt(1));
+//                brigada.setNombre_br(rs.getString(2));
+//                brigada.setEspecialidad(TipoIncidente.valueOf(rs.getString(3)));
+//                brigada.setLibre(rs.getBoolean(4));
+//                brigada.setFKnro_cuartel(rs.getInt(5));
+//                
+//                brigadasLibres.add(brigada);
+//            }
+//            statement.close();
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
+//        return brigadasLibres;
+//    }
+    
+//    public List<Brigada> listarBrigadasOcupadas() {
+//        List<Brigada> brigadasOcupadas = new ArrayList<>();
+//        String query = "SELECT * FROM brigada WHERE libre=" + 0;
+//        
+//        try{
+//            Statement statement = conexion.createStatement();
+//            ResultSet rs = statement.executeQuery(query);
+//            while(rs.next()){
+//                Brigada brigada = new Brigada();
+//                brigada.setCodBrigada(rs.getInt(1));
+//                brigada.setNombre_br(rs.getString(2));
+//                brigada.setEspecialidad(TipoIncidente.valueOf(rs.getString(3)));
+//                brigada.setLibre(rs.getBoolean(4));
+//                brigada.setFKnro_cuartel(rs.getInt(5));
+//                
+//                brigadasOcupadas.add(brigada);
+//            }
+//            statement.close();
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
+//        return brigadasOcupadas;
+//    }
 }
