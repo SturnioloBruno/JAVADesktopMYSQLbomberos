@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -98,6 +100,50 @@ public class CuartelData {
             ex.printStackTrace();
         }
         return respuesta;
+    }
+    
+    public List<Cuartel> listarTodosLosCuarteles() {
+        List<Cuartel> cuarteles = new ArrayList<>();
+        String query = "SELECT * FROM cuartel";
+        try{
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                Cuartel cuartel = new Cuartel();
+                cuartel.setCodCuartel(rs.getInt(1));
+                cuartel.setNombre_cuartel(rs.getString(2));
+                cuartel.setDireccion(rs.getString(3));
+                cuartel.setCoord_X(rs.getInt(4));
+                cuartel.setCoord_Y(rs.getInt(5));
+                cuartel.setTelefono(rs.getString(6));
+                cuartel.setCorreo(rs.getString(7));
+                
+                cuarteles.add(cuartel);
+            }
+            statement.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return cuarteles;
+    }
+    
+    public void actualizarCuartel(Cuartel cuartel, Integer codigo){
+        String query = "UPDATE cuartel SET nombre_cuartel=?,direccion=?,coord_X=?,coord_Y=?,telefono=?,correo=? WHERE codCuartel=" + codigo;
+        try{
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setString(1, cuartel.getNombre_cuartel());
+            ps.setString(2, cuartel.getDireccion());
+            ps.setInt(3, cuartel.getCoord_X());
+            ps.setInt(4, cuartel.getCoord_Y());
+            ps.setString(5, cuartel.getTelefono());
+            ps.setString(6, cuartel.getCorreo());
+            
+            if(ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Cuartel Actualizado con exito");
+            }
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     

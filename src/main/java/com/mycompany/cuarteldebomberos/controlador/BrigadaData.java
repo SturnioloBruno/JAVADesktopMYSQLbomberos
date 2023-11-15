@@ -4,6 +4,7 @@
  */
 package com.mycompany.cuarteldebomberos.controlador;
 
+import com.mycompany.cuarteldebomberos.modelo.Bombero;
 import com.mycompany.cuarteldebomberos.modelo.Brigada;
 import com.mycompany.cuarteldebomberos.modelo.Cuartel;
 import com.mycompany.cuarteldebomberos.modelo.TipoIncidente;
@@ -13,6 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
 
@@ -54,7 +58,9 @@ public class BrigadaData {
     }
     
     public Brigada asignarBrigadaAlCuartelConNombre(Brigada brigada, String nombreCuartel){
+        // Primero traigo la brigada de la BD para verificar que existe, y recuperar su PK
         Brigada brigadaC = this.buscarBrigadaSegunNombre(brigada.getNombre_br());
+        
         if(brigadaC != null && brigadaC.getFKnro_cuartel() == null){ // se encontro una brigada con ese nombre            
             // traigo de la BD el cuartel y recupero el codigo de la FK para Brigada
             Cuartel cuartel = cd.buscarCuartelSegunNombre(nombreCuartel);
@@ -62,9 +68,12 @@ public class BrigadaData {
                 JOptionPane.showMessageDialog(null, "No puedes asignar una brigada a un cuartel que no existe, revisa el nombre del cuartel");
                 return brigada;
             }
-            Set<Brigada> listaBrigadas = cuartel.getBrigadasDelCuartel();
+            
+            // duda existencial, el modelo de cuartel no deberia de preocuparme por actualizarlo ahora?
+            Set<Brigada> listaBrigadas = new HashSet<>();
             listaBrigadas.add(brigada);
             cuartel.setBrigadasDelCuartel(listaBrigadas);
+            
             // seteo la FK en mi modelo brigada
             brigada.setFKnro_cuartel(cuartel.getCodCuartel());
             // actualizo mi BD, deberia actualizar cuartel? mi modelo tiene una coleccion de brigadas, pero la BD de cuartel no
@@ -76,7 +85,7 @@ public class BrigadaData {
             }catch(SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al actualizar brigada");
             }
-            JOptionPane.showMessageDialog(null, cuartel.toString());
+            JOptionPane.showMessageDialog(null, "brigada " + brigadaC.getNombre_br() + " asignada al cuartel " + nombreCuartel);
         }else{
             JOptionPane.showMessageDialog(null, "No puedes asignar una brigada que no existe o ya asignada a un cuartel, revisa el nombre de la brigada");
         }
@@ -108,5 +117,27 @@ public class BrigadaData {
         return respuesta;
     }
     
+    public List<Brigada> listarTodasLasBrigadas() {
+        List<Brigada> brigadas = new ArrayList<>();
+        String query = "SELECT * FROM brigada";
+        try{
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                Brigada brigada = new Brigada();
+                brigada.setCodBrigada(rs.getInt(1));
+                brigada.setNombre_br(rs.getString(2));
+                brigada.setEspecialidad(TipoIncidente.valueOf(rs.getString(3)));
+                brigada.setLibre(rs.getBoolean(4));
+                brigada.setFKnro_cuartel(rs.getInt(5));
+                
+                brigadas.add(brigada);
+            }
+            statement.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return brigadas;
+    }
     
 }

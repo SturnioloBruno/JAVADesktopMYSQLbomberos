@@ -16,6 +16,7 @@ import com.mycompany.cuarteldebomberos.modelo.TipoIncidente;
 import com.mycompany.cuarteldebomberos.utils.Conexion;
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -40,12 +41,30 @@ public class CuartelDeBomberos {
 //        Siniestro siniestroSinAsignarAGuardar = new Siniestro(TipoIncidente.SOCORRER_INUNDACIONES, LocalDate.now(), 13, 92, "esto es una inundacion en una casa \n los habitantes ya han sido evacuados", null, null, null);
 //        sd.guardarSiniestroSinAsignar(siniestroSinAsignarAGuardar);
 
+//        CuartelData cd = new CuartelData();
+//        Cuartel cuartelBuscado = cd.buscarCuartelSegunNombre("polvorin");
+//        System.out.println(cuartelBuscado.toString());
+//        
+//        BrigadaData bd = new BrigadaData();
+//        Brigada brigadaBuscada = bd.buscarBrigadaSegunNombre("suicideSquad");
+//        bd.asignarBrigadaAlCuartelConNombre(brigadaBuscada, "polvorin");
+
+//        BrigadaData bd = new BrigadaData();
+//        List<Brigada> todasMisBrigadas = bd.listarTodasLasBrigadas();
+//        for (Brigada brigada : todasMisBrigadas) {
+//            System.out.println(brigada.toString());
+//        }
+
+//        CuartelData cd = new CuartelData();
+//        List<Cuartel> todosMisCuarteles = cd.listarTodosLosCuarteles();
+//        for(Cuartel cuartel:todosMisCuarteles){
+//            System.out.println(cuartel.toString());
+//        }
+
         CuartelData cd = new CuartelData();
-        Cuartel cuartelBuscado = cd.buscarCuartelSegunNombre("polvorin");
-        System.out.println(cuartelBuscado.toString());
+        Cuartel cuartelActualizado = new Cuartel("sinBrigadas", "siempreViva", 13, 92, "039175", "@polvorin", null);
+        cd.actualizarCuartel(cuartelActualizado, 1);
         
-        BrigadaData bd = new BrigadaData();
-        Brigada brigadaBuscada = bd.buscarBrigadaSegunNombre("suicideSquad");
-        System.out.println(brigadaBuscada.toString());
+        
     }
 }
