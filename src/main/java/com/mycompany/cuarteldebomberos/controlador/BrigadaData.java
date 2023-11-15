@@ -61,7 +61,7 @@ public class BrigadaData {
         // Primero traigo la brigada de la BD para verificar que existe, y recuperar su PK
         Brigada brigadaC = this.buscarBrigadaSegunNombre(brigada.getNombre_br());
         
-        if(brigadaC != null && brigadaC.getFKnro_cuartel() == null){ // se encontro una brigada con ese nombre            
+        if(brigadaC != null && brigadaC.getFKnro_cuartel() == null){ // se encontro una brigada con ese nombre y sin cuartel asignado           
             // traigo de la BD el cuartel y recupero el codigo de la FK para Brigada
             Cuartel cuartel = cd.buscarCuartelSegunNombre(nombreCuartel);
             if(cuartel == null){
@@ -70,9 +70,9 @@ public class BrigadaData {
             }
             
             // duda existencial, el modelo de cuartel no deberia de preocuparme por actualizarlo ahora?
-            Set<Brigada> listaBrigadas = new HashSet<>();
-            listaBrigadas.add(brigada);
-            cuartel.setBrigadasDelCuartel(listaBrigadas);
+//            Set<Brigada> listaBrigadas = new HashSet<>();
+//            listaBrigadas.add(brigada);
+//            cuartel.setBrigadasDelCuartel(listaBrigadas);
             
             // seteo la FK en mi modelo brigada
             brigada.setFKnro_cuartel(cuartel.getCodCuartel());
@@ -93,6 +93,30 @@ public class BrigadaData {
         return brigadaC;
     }
     
+    public Brigada buscarBrigadaPorCod(Integer cod) {
+        Brigada respuesta = new Brigada();
+        String query = "SELECT * FROM brigada WHERE codBrigada=" + cod;
+        
+        try{
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            if(rs.next()) {
+                respuesta.setCodBrigada(rs.getInt(1));
+                respuesta.setNombre_br(rs.getString(2));
+                respuesta.setEspecialidad(TipoIncidente.valueOf(rs.getString(3)));
+                respuesta.setLibre(rs.getBoolean(4));
+                respuesta.setFKnro_cuartel(rs.getInt(5));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe una brigada con codigo: " + cod);
+            }
+            statement.close();                       
+        }catch(SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar brigada con codigo: " + cod);
+            ex.printStackTrace();
+        }
+        return respuesta;
+    }
+    
     public Brigada buscarBrigadaSegunNombre(String nombre) {
         Brigada respuesta = new Brigada();
         String query = "SELECT * FROM brigada WHERE nombre_br LIKE '" + nombre + "'";
@@ -106,6 +130,7 @@ public class BrigadaData {
                 respuesta.setEspecialidad(TipoIncidente.valueOf(rs.getString(3)));
                 respuesta.setLibre(rs.getBoolean(4));
                 // Para asignar el cuartel al cual pertenece esta brigada, tengo primero que construirlo con ayuda de CuartelData
+                // Esto en realidad no seria necesario, con tener el FK de brigada de la BD, no necesito crear el modelo de cuartel
                 Cuartel cuartelAlQuePerteneceLaBrigada = cd.buscarPorCodCuartel(rs.getInt(5));
                 respuesta.setFKnro_cuartel(cuartelAlQuePerteneceLaBrigada.getCodCuartel());
             }

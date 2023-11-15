@@ -61,10 +61,38 @@ public class CuartelDeBomberos {
 //            System.out.println(cuartel.toString());
 //        }
 
-        CuartelData cd = new CuartelData();
-        Cuartel cuartelActualizado = new Cuartel("sinBrigadas", "siempreViva", 13, 92, "039175", "@polvorin", null);
-        cd.actualizarCuartel(cuartelActualizado, 1);
+//        CuartelData cd = new CuartelData();
+//        Cuartel cuartelActualizado = new Cuartel("sinBrigadas", "siempreViva", 13, 92, "039175", "@polvorin", null);
+//        cd.actualizarCuartel(cuartelActualizado, 1);
         
+//        BrigadaData bd = new BrigadaData();
+//        System.out.println(bd.buscarBrigadaPorCod(1).toString());
         
+//        BomberoData bd = new BomberoData();
+//        Bombero yo = bd.buscarBomberoPorCod(2);
+//        System.out.println(yo.toString());
+//        bd.asignarBomberoABrigadaConNombre(yo, "suicideSquad");
+//        List<Bombero> bomberos = bd.listarTodosLosBomberos();
+//        for(Bombero bombero: bomberos){
+//            System.out.println(bombero.toString());
+//        }
+//        bd.darDeBajaBomberoConDNI("36046044");
+
+//        SiniestroData sd = new SiniestroData();
+//        LocalDate fecha = LocalDate.of(2023, 11, 14);
+//        TipoIncidente tipo = TipoIncidente.SOCORRER_INUNDACIONES;
+//        Siniestro sin = sd.buscarSiniestroPorFechaYTipo(fecha, tipo);
+//        System.out.println(sin.toString());
+//        sd.asignarSiniestroABrigadaConNombre(sin, "suicideSquad");
+//        List<Siniestro> siniestros = sd.listarTodosLosSiniestros();
+//        for(Siniestro sin: siniestros){
+//            System.out.println(sin.toString());
+//        }
+        SiniestroData sd = new SiniestroData();
+        LocalDate fecha = LocalDate.of(2023, 11, 14);
+        TipoIncidente tipo = TipoIncidente.SOCORRER_INUNDACIONES;
+        Siniestro sinAActualizar = sd.buscarSiniestroPorCod(1);
+        Siniestro sinYaActualizado = new Siniestro(TipoIncidente.SALVAMENTO_EN_DERRUMBES, LocalDate.now(), 1, 1, "ahora esta resuelto .si lo cambie de verdad \n por completo, o casi\nlos habitantes ya han sido evacuados", LocalDate.now().plusDays(1), 10, null);
+        sd.actualizarOResolverSiniestro(sinAActualizar, sinYaActualizado);
     }
 }
