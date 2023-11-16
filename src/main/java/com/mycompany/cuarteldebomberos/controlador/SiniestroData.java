@@ -195,7 +195,7 @@ public class SiniestroData {
         }
         return siniestros;
     }
-    
+      
     public Siniestro actualizarOResolverSiniestro(Siniestro siniestroAActualizar, Siniestro siniestro) {
         Siniestro siniestroC = this.buscarSiniestroPorFechaYTipo(siniestroAActualizar.getFecha_siniestro(), siniestroAActualizar.getTipo());
         String query = "UPDATE siniestro SET tipo=?, fecha_siniestro=?, coord_X=?, coord_Y=?, detalles=?, fecha_resol=?, puntuacion=? WHERE codigo=?";

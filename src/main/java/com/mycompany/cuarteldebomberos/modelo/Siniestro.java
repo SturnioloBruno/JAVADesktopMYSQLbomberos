@@ -121,7 +121,7 @@ public class Siniestro {
 
     @Override
     public String toString() {
-        return "Siniestro{" + "codigo=" + codigo + ", tipo=" + tipo + ", fecha_siniestro=" + fecha_siniestro + ", coord_X=" + coord_X + ", coord_Y=" + coord_Y + ", detalles=" + detalles + ", fecha_resol=" + fecha_resol + ", puntuacion=" + puntuacion + ", FKcodBrigada=" + FKcodBrigada + '}';
+        return tipo + ", fecha_siniestro=" + fecha_siniestro;
     }
     
 }

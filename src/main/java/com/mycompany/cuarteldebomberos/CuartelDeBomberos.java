@@ -14,6 +14,7 @@ import com.mycompany.cuarteldebomberos.modelo.Cuartel;
 import com.mycompany.cuarteldebomberos.modelo.Siniestro;
 import com.mycompany.cuarteldebomberos.modelo.TipoIncidente;
 import com.mycompany.cuarteldebomberos.utils.Conexion;
+import com.mycompany.cuarteldebomberos.utils.Punto;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.List;
@@ -88,11 +89,14 @@ public class CuartelDeBomberos {
 //        for(Siniestro sin: siniestros){
 //            System.out.println(sin.toString());
 //        }
-        SiniestroData sd = new SiniestroData();
-        LocalDate fecha = LocalDate.of(2023, 11, 14);
-        TipoIncidente tipo = TipoIncidente.SOCORRER_INUNDACIONES;
-        Siniestro sinAActualizar = sd.buscarSiniestroPorCod(1);
-        Siniestro sinYaActualizado = new Siniestro(TipoIncidente.SALVAMENTO_EN_DERRUMBES, LocalDate.now(), 1, 1, "ahora esta resuelto .si lo cambie de verdad \n por completo, o casi\nlos habitantes ya han sido evacuados", LocalDate.now().plusDays(1), 10, null);
-        sd.actualizarOResolverSiniestro(sinAActualizar, sinYaActualizado);
+//        SiniestroData sd = new SiniestroData();
+//        LocalDate fecha = LocalDate.of(2023, 11, 14);
+//        TipoIncidente tipo = TipoIncidente.SOCORRER_INUNDACIONES;
+//        Siniestro sinAActualizar = sd.buscarSiniestroPorCod(1);
+//        Siniestro sinYaActualizado = new Siniestro(TipoIncidente.SALVAMENTO_EN_DERRUMBES, LocalDate.now(), 1, 1, "ahora esta resuelto .si lo cambie de verdad \n por completo, o casi\nlos habitantes ya han sido evacuados", LocalDate.now().plusDays(1), 10, null);
+//        sd.actualizarOResolverSiniestro(sinAActualizar, sinYaActualizado);
+
+        CuartelData cd = new CuartelData();
+        System.out.println(cd.devolverCuartelEnPunto(new Punto(13,92)));
     }
 }

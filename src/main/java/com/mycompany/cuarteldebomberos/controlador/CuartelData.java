@@ -6,6 +6,7 @@ package com.mycompany.cuarteldebomberos.controlador;
 
 import com.mycompany.cuarteldebomberos.modelo.Cuartel;
 import com.mycompany.cuarteldebomberos.utils.Conexion;
+import com.mycompany.cuarteldebomberos.utils.Punto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -125,6 +126,34 @@ public class CuartelData {
             ex.printStackTrace();
         }
         return cuarteles;
+    }
+    
+    public Cuartel devolverCuartelEnPunto(Punto punto){
+        int coordX = punto.getCoordx();
+        int coordY = punto.getCoordy();
+        Cuartel respuesta = new Cuartel();
+        String query = "SELECT * FROM cuartel WHERE coord_X = ? AND coord_Y = ?";
+        
+        try{
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, coordX);
+            ps.setInt(2,coordY);
+            
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                respuesta.setCodCuartel(rs.getInt(1));
+                respuesta.setNombre_cuartel(rs.getString(2));
+                respuesta.setDireccion(rs.getString(3));
+                respuesta.setCoord_X(rs.getInt(4));
+                respuesta.setCoord_Y(rs.getInt(5));
+                respuesta.setTelefono(rs.getString(6));
+                respuesta.setCorreo(rs.getString(7));
+            }
+            ps.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return respuesta;       
     }
     
     public void actualizarCuartel(Cuartel cuartel, Integer codigo){

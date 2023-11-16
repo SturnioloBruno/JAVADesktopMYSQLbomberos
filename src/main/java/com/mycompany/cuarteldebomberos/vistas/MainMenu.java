@@ -49,19 +49,22 @@ public class MainMenu extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(700, 500));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 542, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
 
         jmCreacion.setText("Creacion");
@@ -131,6 +134,18 @@ public class MainMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jmModificar);
 
+        jMenu1.setText("Radar/LogisticaDeBrigadas");
+
+        jMenuItem13.setText("Calcular Distancias y Logistica de Brigadas");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem13);
+
+        jMenuBar1.add(jMenu1);
+
         jmSalir.setText("Salir");
         jMenuBar1.add(jmSalir);
 
@@ -179,6 +194,16 @@ public class MainMenu extends javax.swing.JFrame {
         escritorio.add(bvla);
         escritorio.moveToFront(bvla);
     }//GEN-LAST:event_jmiListarAsignadasActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        LogisticaView lv = new LogisticaView();
+        lv.setVisible(true);
+        escritorio.add(lv);
+        escritorio.moveToFront(lv);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     public static List<Brigada> consultaBrigadasLibres() {
         List<Brigada> brigadas = bd.listarTodasLasBrigadas();
@@ -238,10 +263,12 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
